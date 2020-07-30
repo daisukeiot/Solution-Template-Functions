@@ -18,7 +18,7 @@ namespace Telemetry_Processor
         private const string Consumer_Group = "telemetry-cg";
 
         [FunctionName("Telemetry_Processor")]
-        public static async Task Run([IoTHubTrigger("messages/events", ConsumerGroup = Consumer_Group, Connection = "IOTHUB_CS")] EventData[] eventData,
+        public static async Task Run([IoTHubTrigger("messages/events", ConsumerGroup = Consumer_Group, Connection = "EVENTHUB_CS")] EventData[] eventData,
                                      [SignalR(HubName = Signalr_Hub)] IAsyncCollector<SignalRMessage> signalRMessage,
                                      ILogger log)
         {
