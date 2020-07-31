@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telemetry-Processor", "Telemetry-Processor\Telemetry-Processor.csproj", "{98D0D043-4EC8-4FC1-8A09-2D778E63C5A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Telemetry-Processor", "Telemetry-Processor\Telemetry-Processor.csproj", "{98D0D043-4EC8-4FC1-8A09-2D778E63C5A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR-Processor", "SignalR-Processor\SignalR-Processor.csproj", "{4245605A-F916-41D9-BC57-2D2789451FC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalR-Processor", "SignalR-Processor\SignalR-Processor.csproj", "{4245605A-F916-41D9-BC57-2D2789451FC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

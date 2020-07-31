@@ -9,9 +9,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 
-namespace SignalR_Processor
+namespace Telemetry_Processor
 {
-    public static class SingalR_Processor
+    public static class SignalR_Processor
     {
         private const string HUBNAME = "telemetryhub";
 
