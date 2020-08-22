@@ -25,7 +25,7 @@ namespace Solution_Accelerator
                 eventGridEvent.EventType.ToString() + ": " + message["data"]);
 
             //Parse updates to "space" twins
-            if (message["data"]["modelId"].ToString() == "dtmi:contosocom:DigitalTwins:Space;1")
+            if (message["data"]["modelId"].ToString() == "dtmi:iotpnpadt:DigitalTwins:Space;1")
             {   //Set the ID of the room to be updated in your map. 
                 //Replace this line with your logic for retrieving featureID. 
                 string featureID = "UNIT103";
