@@ -1,5 +1,6 @@
 using System;
 using System.Net.Http;
+using System.Text;
 using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
 using Azure.DigitalTwins.Core.Serialization;
@@ -41,10 +42,13 @@ namespace Telemetry_Processor
 
                     // Reading deviceId and temperature for IoT Hub JSON
                     JObject deviceMessage = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
+                    var body = (byte[])deviceMessage["body"];
+                    var payload = Encoding.ASCII.GetString(body);
+                    log.LogInformation($"Body {payload}");
 
                     log.LogInformation(deviceMessage.ToString());
                     string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
-                    var temperature = deviceMessage["body"]["Temperature"];
+                    var temperature = deviceMessage["body"]["temperature_hts221"];
 
                     log.LogInformation($"Device:{deviceId} Temperature is:{temperature}");
 
