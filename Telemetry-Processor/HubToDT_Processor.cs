@@ -41,6 +41,8 @@ namespace Telemetry_Processor
 
                     // Reading deviceId and temperature for IoT Hub JSON
                     JObject deviceMessage = (JObject)JsonConvert.DeserializeObject(eventGridEvent.Data.ToString());
+
+                    log.LogInformation(deviceMessage.ToString());
                     string deviceId = (string)deviceMessage["systemProperties"]["iothub-connection-device-id"];
                     var temperature = deviceMessage["body"]["Temperature"];
 
