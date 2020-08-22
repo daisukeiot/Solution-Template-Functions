@@ -1,6 +1,5 @@
 using System;
 using System.Net.Http;
-using System.Text;
 using Azure.Core.Pipeline;
 using Azure.DigitalTwins.Core;
 using Azure.DigitalTwins.Core.Serialization;
