@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Telemetry_Processor
+namespace Solution_Accelerator
 {
     public class HubToDT_Processor
     {

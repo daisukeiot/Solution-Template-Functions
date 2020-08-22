@@ -2,8 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v3</AzureFunctionsVersion>
-    <RootNamespace>Telemetry_Processor</RootNamespace>
+    <RootNamespace>Solution_Accelerator</RootNamespace>
     <UserSecretsId>05ca50ba-002e-45a1-b8cc-67e5d88833a0</UserSecretsId>
+    <AssemblyName>Solution-Accelerator-Function</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Azure.DigitalTwins.Core" Version="1.0.0-preview.3" />

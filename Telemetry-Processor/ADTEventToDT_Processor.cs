@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 
-namespace Telemetry_Processor
+namespace Solution_Accelerator
 {
     public class ADTEventToDT_Processor
     {
