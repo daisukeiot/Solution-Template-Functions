@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 
-namespace Telemetry_Processor
+namespace Solution_Accelerator
 {
     public static class SignalR_Processor
     {

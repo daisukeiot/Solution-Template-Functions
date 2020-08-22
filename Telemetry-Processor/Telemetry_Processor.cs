@@ -10,14 +10,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 using Newtonsoft.Json;
 
-namespace Telemetry_Processor
+namespace Solution_Accelerator
 {
-    public static class Telemetry_Processor
+    public static class Solution_Accelerator
     {
         private const string Signalr_Hub = "telemetryhub";
         private const string Consumer_Group = "telemetry-cg";
 
-        [FunctionName("Telemetry_Processor")]
+        [FunctionName("Solution_Accelerator")]
         public static async Task Run([IoTHubTrigger("messages/events", ConsumerGroup = Consumer_Group, Connection = "EVENTHUB_CS")] EventData[] eventData,
                                      [SignalR(HubName = Signalr_Hub)] IAsyncCollector<SignalRMessage> signalRMessage,
                                      ILogger log)
