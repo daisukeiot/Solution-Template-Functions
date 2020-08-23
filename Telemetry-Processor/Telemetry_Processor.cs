@@ -18,9 +18,13 @@ namespace Solution_Accelerator
         private const string Consumer_Group = "telemetry-cg";
 
         [FunctionName("Solution_Accelerator")]
-        public static async Task Run([IoTHubTrigger("messages/events", ConsumerGroup = Consumer_Group, Connection = "EVENTHUB_CS")] EventData[] eventData,
+        public static async Task Run([EventHubTrigger("devicetelemetryhub", ConsumerGroup = "telemetry-functions-cg", Connection = "EVENTHUB_CS")] EventData[] eventData,
                                      [SignalR(HubName = Signalr_Hub)] IAsyncCollector<SignalRMessage> signalRMessage,
                                      ILogger log)
+
+        //public static async Task Run([IoTHubTrigger("messages/events", ConsumerGroup = Consumer_Group, Connection = "EVENTHUB_CS")] EventData[] eventData,
+        //                             [SignalR(HubName = Signalr_Hub)] IAsyncCollector<SignalRMessage> signalRMessage,
+        //                             ILogger log)
         {
             var exceptions = new List<Exception>();
 
@@ -34,6 +38,11 @@ namespace Solution_Accelerator
                         string msgSource = ed.SystemProperties["iothub-message-source"].ToString();
                         string signalr_target = string.Empty;
                         string model_id = string.Empty;
+
+                        if (msgSource != "Telemetry")
+                        {
+                            log.LogInformation($"IoT Hub Message Source {msgSource}");
+                        }
 
                         log.LogInformation($"Telemetry Source  : {msgSource}");
                         log.LogInformation($"Telemetry Message : {Encoding.UTF8.GetString(ed.Body.Array, ed.Body.Offset, ed.Body.Count)}");
