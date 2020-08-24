@@ -17,7 +17,7 @@ namespace Solution_Accelerator
         private const string Signalr_Hub = "telemetryhub";
         private const string Consumer_Group = "telemetry-cg";
 
-        [FunctionName("Solution_Accelerator")]
+        [FunctionName("Telemetry_Processor")]
         public static async Task Run([EventHubTrigger("devicetelemetryhub", ConsumerGroup = "telemetry-functions-cg", Connection = "EVENTHUB_CS")] EventData[] eventData,
                                      [SignalR(HubName = Signalr_Hub)] IAsyncCollector<SignalRMessage> signalRMessage,
                                      ILogger log)
