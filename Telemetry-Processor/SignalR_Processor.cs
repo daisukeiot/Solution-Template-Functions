@@ -15,6 +15,9 @@ namespace Solution_Accelerator
     {
         private const string HUBNAME = "telemetryhub";
 
+        //
+        // A function in case an application (e.g. web site) wants to establish connection.
+        // 
         [FunctionName("negotiate")]
         public static IActionResult GetSignalRInfo(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
@@ -37,6 +40,9 @@ namespace Solution_Accelerator
             }
         }
 
+        //
+        // A test function so you can make a REST call with app such as Postman to test SignalR
+        // 
         [FunctionName("SignalR_Test")]
         public static async Task<IActionResult> SignalR_Test(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
@@ -45,19 +51,19 @@ namespace Solution_Accelerator
         {
             log.LogInformation("SignalR Test Function");
 
-            string name = req.Query["name"];
+            string message = req.Query["testmessage"];
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            name = name ?? data?.name;
+            message = message ?? data?.message;
 
             await signalRMessages.AddAsync(new SignalRMessage
             {
-                Target = "ReceiveMessage",
-                Arguments = new[] { name, requestBody }
+                Target = "DeviceTelemetry",
+                Arguments = new[] { message, requestBody }
             });
             log.LogInformation("SignalR Test Function.  Message Sent.");
-            return new OkObjectResult("Hello");
+            return new OkObjectResult($"Received Message : {message}");
         }
     }
 }

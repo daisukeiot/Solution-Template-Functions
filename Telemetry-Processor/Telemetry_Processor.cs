@@ -21,10 +21,6 @@ namespace Solution_Accelerator
         public static async Task Run([EventHubTrigger("devicetelemetryhub", ConsumerGroup = "telemetry-functions-cg", Connection = "EVENTHUB_CS")] EventData[] eventData,
                                      [SignalR(HubName = Signalr_Hub)] IAsyncCollector<SignalRMessage> signalRMessage,
                                      ILogger log)
-
-        //public static async Task Run([IoTHubTrigger("messages/events", ConsumerGroup = Consumer_Group, Connection = "EVENTHUB_CS")] EventData[] eventData,
-        //                             [SignalR(HubName = Signalr_Hub)] IAsyncCollector<SignalRMessage> signalRMessage,
-        //                             ILogger log)
         {
             var exceptions = new List<Exception>();
 
@@ -62,6 +58,7 @@ namespace Solution_Accelerator
                             eventSource = msgSource,
                             deviceId = deviceId,
                             dtDataSchema = model_id,
+                            data = null
                         };
 
                         // Process telemetry based on message source
@@ -87,18 +84,22 @@ namespace Solution_Accelerator
                                 break;
                         }
 
-                        var data = JsonConvert.SerializeObject(signalrData);
-
-                        await signalRMessage.AddAsync(new SignalRMessage
+                        if (signalrData.data != null)
                         {
-                            Target = signalr_target,
-                            Arguments = new[] { data }
-                        });
+                            // send to SignalR Hub
+                            var data = JsonConvert.SerializeObject(signalrData);
 
+                            await signalRMessage.AddAsync(new SignalRMessage{
+                                                                Target = signalr_target,
+                                                                Arguments = new[] { data }
+                                                            });
+                        }
+
+                        signalrData = null;
                     }
                     else
                     {
-                        log.LogInformation("Unknown Message Source");
+                        log.LogInformation("Unsupported Message Source");
                     }
                 }
                 catch (Exception e)
@@ -114,26 +115,36 @@ namespace Solution_Accelerator
                 throw exceptions.Single();
         }
 
-        // Placeholder to process specific for event types
+        // Process Telemetry
+        // Add filtering etc as needed
+        // leave signalrData.data to null if we do not want to send SignalR message
         private static void OnTelemetryReceived(NOTIFICATION_DATA signalrData, EventData eventData, ILogger log)
         {
             log.LogInformation($"OnTelemetryReceived");
             signalrData.data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
-
         }
 
+        // Process Device Twin Change Event
+        // Add filtering etc as needed
+        // leave signalrData.data to null if we do not want to send SignalR message
         private static void OnDeviceTwinChanged(NOTIFICATION_DATA signalrData, EventData eventData, ILogger log)
         {
             log.LogInformation($"OnDeviceTwinChanged");
             signalrData.data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
         }
 
+        // Process Digital Twin Change Event
+        // Add filtering etc as needed
+        // leave signalrData.data to null if we do not want to send SignalR message
         private static void OnDigitalTwinTwinChanged(NOTIFICATION_DATA signalrData, EventData eventData, ILogger log)
         {
             log.LogInformation($"OnDigitalTwinTwinChanged");
             signalrData.data = Encoding.UTF8.GetString(eventData.Body.Array, eventData.Body.Offset, eventData.Body.Count);
         }
 
+        // Process Device Lifecycle Change event
+        // Add filtering etc as needed
+        // leave signalrData.data to null if we do not want to send SignalR message
         private static void OnDeviceLifecycleChanged(NOTIFICATION_DATA signalrData, EventData eventData, ILogger log)
         {
             log.LogInformation($"OnDeviceLifecycleChanged");
