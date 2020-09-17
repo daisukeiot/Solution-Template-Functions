@@ -59,7 +59,7 @@ namespace Solution_Accelerator
 
             await signalRMessages.AddAsync(new SignalRMessage
             {
-                Target = "DeviceTelemetry",
+                Target = "SignalRTest",
                 Arguments = new[] { message, requestBody }
             });
             log.LogInformation("SignalR Test Function.  Message Sent.");
