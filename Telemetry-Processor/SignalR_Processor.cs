@@ -51,19 +51,16 @@ namespace Solution_Accelerator
         {
             log.LogInformation("SignalR Test Function");
 
-            string message = req.Query["testmessage"];
-
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
-            message = message ?? data?.message;
 
             await signalRMessages.AddAsync(new SignalRMessage
             {
                 Target = "SignalRTest",
-                Arguments = new[] { message, requestBody }
+                Arguments = new[] { data }
             });
             log.LogInformation("SignalR Test Function.  Message Sent.");
-            return new OkObjectResult($"Received Message : {message}");
+            return new OkObjectResult($"Received Message : {data}");
         }
     }
 }
